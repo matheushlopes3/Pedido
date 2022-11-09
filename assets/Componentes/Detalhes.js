@@ -28,6 +28,7 @@ const Detalhes = ({exibeModal, alteraExibeModal}) =>{
                         <Box style={e.Linha2}>
                             <Text  style={e.Texto2} >  Preço: {p.preco_venda} </Text>
                             <Text style={e.Texto3} >  Qtd: {p.quantidade} </Text>
+                            <Text> Total: R$ {(p.preco_venda * p.quantidade).toFixed(2).replace(".",",")} </Text>
                         </Box>
                     </Box>
 

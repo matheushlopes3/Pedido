@@ -2,18 +2,56 @@ import { Box } from "@react-native-material/core";
 import { StyleSheet, Text  } from 'react-native';
 import { PedidoContexto } from "../Contextos/PedidoContexto";
 import React from "react";
-
+import axios from "axios";
 
 
 const Resumo = () => {
 
-//    const [ pedido, alteraPedido ] = React.useContext(PedidoContexto)
-    const [ produto, alteraProduto ] = React.useContext(PedidoContexto)
+    const [ pedido, alteraPedido ] = React.useState(null)
+    const [ produtosPedido, alteraProdutosPedido ] = React.useContext(PedidoContexto)
+
+    React.useEffect(() => {
+        axios.get ("http://10.60.46.31:3001/pedidos/busca_nao_concluido_por_mesa/" + 9 ) 
+        .then( res => {
+            console.log(res)
+            if(res.data == 0) {
+            console.log("Pedido zerado")
+            return
+            }
+            const pedido_encontrado = res.data[ 0 ]
+        //    alteraPedido(pedido_encontrado)
+            alteraPedido(pedido_encontrado)
+        })
+        .catch( res => console.log(res) )
+    },[])
+
+    const calculaTotal = () => {
+        let precoTotal = 0
+        produtosPedido.map(p=>{
+            precoTotal += parseFloat(p.preco_venda * p.quantidade)
+        })
+        return(
+            precoTotal.toFixed(2).replace(".",",")
+        )
+    }
+
+
+    /*
+    aguarrdando
+    comfirmado
+    preparando
+    concluido
+    * */
 
     return(
+
         <Box>
-            <Text style={e.Container} > Código do pedido: {  /*produto[0].pedido_id*/ } </Text>
-            <Text style={e.Texto} > Total: 29,90 </Text>
+            { produtosPedido == 0? <Text> Carregando </Text> : 
+                <Box>
+                    <Text style={e.Container} > Código do pedido: { produtosPedido[0].id_pedidos } </Text>
+                    <Text style={e.Texto} > Total: R$ { calculaTotal() }</Text>
+                </Box>
+            }
         </Box>
     );
 }
