@@ -14,19 +14,39 @@ import { PedidoProvedor, PedidoContexto } from './assets/Contextos/PedidoContext
 export default function App() {
 
   const [ exibeModal , alteraExibeModal ] = React.useState( false );
+  const [ pedido, alteraPedido ] = React.useState(null)
 
 
   return (
     <Box>
-        <PedidoProvedor>
+      <PedidoProvedor>
+        <Box>
+          <Resumo alteraPedido={alteraPedido}/>
+          { pedido == null?
+            <Box style={e.Pedido} > 
+              <Text> Pedido Concluído </Text> 
 
-              <Resumo />
-              <StatusPedido />
+              <Image 
+                style={e.ImagemConcluido}
+                  source={{
+                   uri: 'https://i.imgur.com/lC6bl2e.jpg',
+                   }}
+               />
 
-              <Button title='Detalhes' style={e.Botao} onPress={() => alteraExibeModal( !exibeModal )  } />
-              <Detalhes exibeModal={exibeModal} alteraExibeModal={alteraExibeModal} />
+               <Button title="Voltar" />
+
+            </Box>
+          :
+          <Box>
             
-        </PedidoProvedor>
+            <StatusPedido pedido={pedido} />
+
+            <Button title='Detalhes' style={e.Botao} onPress={() => alteraExibeModal( !exibeModal )  } />
+            <Detalhes exibeModal={exibeModal} alteraExibeModal={alteraExibeModal} />
+          </Box>
+          }
+        </Box>    
+      </PedidoProvedor>
     </Box> 
   );
 }
@@ -39,6 +59,21 @@ const e = StyleSheet.create({
     marginTop: 8,
     marginLeft: 15,
 
+  },
+  Imagem:{
+    width:50,
+    height:50,
+    borderRadius: "100%",
+    marginRight: 25,
+  },
+  ImagemConcluido:{
+    width:85,
+    height:85,
+  },
+  Pedido:{
+    marginTop:70,
+    alignItems: "center",
+    padding: 25,
   },
     
 })

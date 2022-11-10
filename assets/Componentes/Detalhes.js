@@ -14,25 +14,38 @@ const Detalhes = ({exibeModal, alteraExibeModal}) =>{
             <Box  >
                 <Button title="X" onPress={() => alteraExibeModal(!exibeModal)} style={e.Botao} />
 
-                { produtosPedido == 0? "Carregando" : produtosPedido.map(p => 
+                { produtosPedido == 0?
+                 <Box style={e.Pedido} > 
+                     <Text> Pedido Concluído </Text> 
 
-                <Box style={e.Linha} >
-                    <Image 
-                        style={e.Imagem}
+                     <Image 
+                        style={e.Imagem2}
                         source={{
-                    uri: p.imagem_url,
-                    }}
-                    />
-                    <Box>
-                        <Text style={e.Texto} > {p.nome} </Text>
-                        <Box style={e.Linha2}>
-                            <Text  style={e.Texto2} >  Preço: {p.preco_venda} </Text>
-                            <Text style={e.Texto3} >  Qtd: {p.quantidade} </Text>
-                            <Text> Total: R$ {(p.preco_venda * p.quantidade).toFixed(2).replace(".",",")} </Text>
-                        </Box>
-                    </Box>
+                            uri: 'https://i.imgur.com/lC6bl2e.jpg',
+                        }}
+                        />
 
-                </Box>
+                 </Box>
+                 :
+                  produtosPedido.map(p => 
+
+                    <Box style={e.Linha} >
+                        <Image 
+                            style={e.Imagem}
+                            source={{
+                        uri: p.imagem_url,
+                        }}
+                        />
+                        <Box>
+                            <Text style={e.Texto} > {p.nome} </Text>
+                            <Box style={e.Linha2}>
+                                <Text  style={e.Texto2} >  Preço: {p.preco_venda} </Text>
+                                <Text style={e.Texto3} >  Qtd: {p.quantidade} </Text>
+                                <Text> Total: R$ {(p.preco_venda * p.quantidade).toFixed(2).replace(".",",")} </Text>
+                            </Box>
+                        </Box>
+
+                    </Box>
                 )}
 
             </Box>
@@ -62,12 +75,6 @@ const e = StyleSheet.create({
     Texto:{
         padding: 1
     },
-    Texto2:{
-
-    },
-    Texto3:{
-       
-    },
     Linha:{
         flexDirection: "row",
         alignItems: "center"
@@ -86,8 +93,7 @@ const e = StyleSheet.create({
         textAlign:"center",
         backgroundColor:"red",
         marginLeft:125
-    }
-    
+    },
  
 })  
 

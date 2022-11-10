@@ -5,9 +5,8 @@ import React from "react";
 import axios from "axios";
 
 
-const Resumo = () => {
+const Resumo = ({alteraPedido}) => {
 
-    const [ pedido, alteraPedido ] = React.useState(null)
     const [ produtosPedido, alteraProdutosPedido ] = React.useContext(PedidoContexto)
 
     React.useEffect(() => {
@@ -35,18 +34,11 @@ const Resumo = () => {
         )
     }
 
-
-    /*
-    aguarrdando
-    comfirmado
-    preparando
-    concluido
-    * */
-
+    console.log(produtosPedido)
     return(
 
         <Box>
-            { produtosPedido == 0? <Text> Carregando </Text> : 
+            { produtosPedido == 0? <Text>  </Text> : 
                 <Box>
                     <Text style={e.Container} > Código do pedido: { produtosPedido[0].id_pedidos } </Text>
                     <Text style={e.Texto} > Total: R$ { calculaTotal() }</Text>
@@ -61,6 +53,7 @@ const e = StyleSheet.create({
         textAlign: "center",
         padding: 10,
         fontSize: 20,
+        backgroundColor:"#fefefe"
     },
     Texto:{
         fontSize: 18,

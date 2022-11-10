@@ -15,7 +15,7 @@ export const PedidoProvedor = (props) =>{
   const buscaPedidoDaMesa = () => {
     axios.get ("http://10.60.46.31:3001/pedidos/busca_nao_concluido_por_mesa/" + mesa  ) 
     .then( res => {
-    //    console.log(res)
+        console.log(res)
         if(res.data == 0) {
           console.log("Pedido zerado")
           return
